@@ -123,4 +123,5 @@ Once the application is running, it will be accessible at http://localhost:8080.
 ### Usage
 
 - **API Documentation:** Use the Swagger UI available at http://localhost:8080/swagger-ui.html to learn how to interact with the API.
-- **Database access:** Open your web browser and navigate to http://localhost:8080/console to connect to the embedded H2 database
+- **Database access:** Open your web browser and navigate to http://localhost:8080/console to connect to the embedded H2 database.
+  - Use jdbc:h2:mem:booking as the JDBC URL to access the in-memory database.
