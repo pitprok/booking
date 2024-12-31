@@ -1,6 +1,6 @@
 package com.acme.booking.controller;
 
-import com.acme.booking.BookingBaseIntegrationTest;
+import com.acme.booking.BookingApplicationBaseIntegrationTest;
 import com.acme.booking.controller.dto.MeetingRoomDto;
 import com.acme.booking.domain.model.MeetingRoom;
 import com.acme.booking.repository.MeetingRoomRepository;
@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class MeetingRoomControllerIT extends BookingBaseIntegrationTest {
+public class MeetingRoomControllerIT extends BookingApplicationBaseIntegrationTest {
 
     @Autowired
     private MeetingRoomRepository meetingRoomRepository;
