@@ -39,7 +39,7 @@ public class MeetingRoomServiceTest {
         MeetingRoom meetingRoom2 = generateMeetingRoomWithId(DEFAULT_MEETING_ROOM_NAME + "2");
         List <MeetingRoom> expectedMeetingRooms = List.of(meetingRoom, meetingRoom2);
 
-        when(meetingRoomRepository.existsByName(meetingRoom.getName())).thenReturn(false);
+        when(meetingRoomRepository.existsByNameIgnoreCase(meetingRoom.getName())).thenReturn(false);
         when(meetingRoomRepository.findAll()).thenReturn(expectedMeetingRooms);
 
         // When
@@ -52,7 +52,7 @@ public class MeetingRoomServiceTest {
     @Test
     public void given_meetingRoomAlreadyExists_when_createMeetingRoom_then_throwsResourceAlreadyExistsException() {
         // Given
-        when(meetingRoomRepository.existsByName(DEFAULT_MEETING_ROOM_NAME)).thenReturn(true);
+        when(meetingRoomRepository.existsByNameIgnoreCase(DEFAULT_MEETING_ROOM_NAME)).thenReturn(true);
 
         // When & Then
         assertThrows(ResourceAlreadyExistsException.class, () -> meetingRoomService.createMeetingRoom(DEFAULT_MEETING_ROOM_NAME));

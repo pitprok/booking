@@ -42,7 +42,7 @@ public class MeetingRoomRepositoryIT {
         meetingRoomRepository.save(room);
 
         // When
-        boolean exists = meetingRoomRepository.existsByName(DEFAULT_MEETING_ROOM_NAME);
+        boolean exists = meetingRoomRepository.existsByNameIgnoreCase(DEFAULT_MEETING_ROOM_NAME);
 
         // Then
         assertThat(exists).isTrue();

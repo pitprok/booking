@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, UUID> {
-    boolean existsByName(String name);
+    boolean existsByNameIgnoreCase(String name);
 }

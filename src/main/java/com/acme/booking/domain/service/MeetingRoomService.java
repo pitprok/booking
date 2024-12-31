@@ -24,7 +24,7 @@ public class MeetingRoomService {
      * @throws ResourceAlreadyExistsException if a room with the given name already exists
      */
     public List<MeetingRoom> createMeetingRoom(String name) {
-        if (meetingRoomRepository.existsByName(name)){
+        if (meetingRoomRepository.existsByNameIgnoreCase(name)){
             throw new ResourceAlreadyExistsException(String.format("A room with the name '%s' already exists", name));
         }
         meetingRoomRepository.save(new MeetingRoom(name));
