@@ -5,6 +5,7 @@ import com.acme.booking.exception.ResourceAlreadyExistsException;
 import com.acme.booking.exception.ResourceNotFoundException;
 import com.acme.booking.repository.MeetingRoomRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MeetingRoomService {
 
     private final MeetingRoomRepository meetingRoomRepository;
@@ -25,9 +27,11 @@ public class MeetingRoomService {
      */
     public List<MeetingRoom> createMeetingRoom(String name) {
         if (meetingRoomRepository.existsByNameIgnoreCase(name)){
+            log.error("A room with the name '{}' already exists", name);
             throw new ResourceAlreadyExistsException(String.format("A room with the name '%s' already exists", name));
         }
         meetingRoomRepository.save(new MeetingRoom(name));
+        log.info("Meeting room '{}' created successfully", name);
         return getAll();
     }
 
@@ -48,7 +52,11 @@ public class MeetingRoomService {
      * @throws ResourceNotFoundException if the meeting room with the given ID is not found
      */
     public MeetingRoom findById(UUID id) {
+        log.info("Finding meeting room with ID: {}", id);
         return meetingRoomRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("The meeting room with ID '%s' was not found", id)));
+                .orElseThrow(() ->{
+                    log.error("The meeting room with ID '{}' was not found", id);
+                    return new ResourceNotFoundException(String.format("The meeting room with ID '%s' was not found", id));
+                });
     }
 }

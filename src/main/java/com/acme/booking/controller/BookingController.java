@@ -6,6 +6,7 @@ import com.acme.booking.facade.BookingFacade;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/booking")
 @RequiredArgsConstructor
+@Slf4j
 public class BookingController {
 
     private final BookingFacade bookingFacade;
@@ -30,6 +32,7 @@ public class BookingController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public List<BookingDto> createBooking(@Valid @RequestBody CreateBookingDto createBookingDto) {
+        log.info("Creating booking with data: {}", createBookingDto);
         return bookingFacade.createBooking(createBookingDto);
 
     }
@@ -45,6 +48,7 @@ public class BookingController {
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get all bookings for meeting room/date", description = "Retrieves bookings for a specific meeting room on a given date.")
     public List<BookingDto> getBookingsForMeetingRoomAndDate(@RequestParam UUID meetingRoomId, @RequestParam LocalDate date) {
+        log.debug("Fetching bookings for meeting room ID: {} and date: {}", meetingRoomId, date);
         return bookingFacade.getBookings(meetingRoomId, date);
     }
 
@@ -57,6 +61,7 @@ public class BookingController {
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
     public void deleteBooking(@RequestParam UUID id) {
+        log.info("Deleting booking with ID: {}", id);
         bookingFacade.deleteBooking(id);
     }
 }

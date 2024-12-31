@@ -7,6 +7,7 @@ import com.acme.booking.exception.PastBookingException;
 import com.acme.booking.exception.ResourceNotFoundException;
 import com.acme.booking.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import static java.time.LocalDateTime.now;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BookingService {
 
     private final BookingRepository bookingRepository;
@@ -32,6 +34,7 @@ public class BookingService {
     public List<Booking> createBooking(Booking booking) {
         checkForBookingOverlap(booking);
         bookingRepository.save(booking);
+        log.info("Booking created successfully: {}", booking);
         return getBookings(booking.getMeetingRoom().getId(), booking.getDate());
     }
 
@@ -56,15 +59,18 @@ public class BookingService {
     public void deleteBooking(UUID bookingId) {
         Optional<Booking> bookingOpt = bookingRepository.findById(bookingId);
         if (bookingOpt.isEmpty()) {
+            log.error("There is no booking with id {}", bookingId);
             throw new ResourceNotFoundException("There is no booking with id " + bookingId);
         }
         Booking booking = bookingOpt.get();
 
         if (bookingIsInThePast(booking)){
+            log.error("Attempt to cancel a booking in the past with ID: {}", bookingId);
             throw new PastBookingException("A booking that has already ended cannot be canceled");
         }
 
         bookingRepository.deleteById(bookingId);
+        log.info("Successfully deleted booking with ID: {}", bookingId);
     }
 
     /**
@@ -86,6 +92,7 @@ public class BookingService {
      */
     private void checkForBookingOverlap(Booking booking) {
         if (bookingRepository.existsByMeetingRoomIdAndDateAndTimeOverlap(booking)) {
+            log.error("Booking overlap detected for booking: {}", booking);
             throw new BookingOverlapException("Booking overlaps with an existing booking");
         }
     }

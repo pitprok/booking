@@ -4,15 +4,15 @@ import com.acme.booking.controller.dto.MeetingRoomDto;
 import com.acme.booking.facade.MeetingRoomFacade;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Validated
+@Slf4j
 @RequestMapping("/api/meeting-room")
 public class MeetingRoomController {
 
@@ -28,6 +28,7 @@ public class MeetingRoomController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public List<MeetingRoomDto> createMeetingRoom(@RequestParam String name) {
+        log.info("Creating meeting room with name: {}", name);
         return meetingRoomFacade.createMeetingRoom(name);
     }
 
@@ -40,6 +41,7 @@ public class MeetingRoomController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<MeetingRoomDto> getAll() {
+        log.debug("Fetching all meeting rooms.");
         return meetingRoomFacade.getAll();
     }
 }
