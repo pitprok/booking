@@ -35,14 +35,14 @@ public class CreateBookingValidator implements ConstraintValidator<ValidBooking,
         context.disableDefaultConstraintViolation();
 
         if (bookingEnd.isBefore(now)) {
-            log.warn("Booking end time for {} is in the past: {}. Validation failed.", createBookingDto, bookingEnd);
+            log.error("Booking end time for {} is in the past: {}. Validation failed.", createBookingDto, bookingEnd);
             context.buildConstraintViolationWithTemplate("Booking end datetime cannot be in the past.")
                     .addConstraintViolation();
             return false;
         }
 
         if (timeTo.isBefore(timeFrom)) {
-            log.warn("End time {} is before start time {}. Validation failed.", timeTo, timeFrom);
+            log.error("End time {} is before start time {}. Validation failed.", timeTo, timeFrom);
             context.buildConstraintViolationWithTemplate("The end time cannot be before the start time.")
                     .addConstraintViolation();
             return false;
@@ -50,7 +50,7 @@ public class CreateBookingValidator implements ConstraintValidator<ValidBooking,
 
         long durationMinutes = Duration.between(timeFrom, timeTo).toMinutes();
         if (durationMinutes < 60 || durationMinutes % 60 != 0) {
-            log.warn("Booking duration for {} is invalid: {} minutes. Validation failed.", createBookingDto, durationMinutes);
+            log.error("Booking duration for {} is invalid: {} minutes. Validation failed.", createBookingDto, durationMinutes);
             context.buildConstraintViolationWithTemplate("The booking duration must be at least 1 hour and in 1-hour increments.")
                     .addConstraintViolation();
             return false;
