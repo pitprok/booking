@@ -10,7 +10,6 @@ import com.acme.booking.repository.BookingRepository;
 import com.acme.booking.repository.MeetingRoomRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +44,6 @@ class BookingApplicationControllerIT extends BookingApplicationBaseIntegrationTe
 
     @BeforeEach
     public void init() {
-        objectMapper.registerModule(new JavaTimeModule());
         bookingRepository.deleteAll();
         meetingRoomRepository.deleteAll();
     }
