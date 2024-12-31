@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -24,6 +25,8 @@ public class MeetingRoom {
     private UUID id;
     @Column(nullable = false, unique = true)
     private String name;
+    @OneToMany(mappedBy = "meetingRoom", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> bookings;
 
     public MeetingRoom(String name) {
         this.name = name;
