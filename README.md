@@ -5,7 +5,6 @@ This project is a Java-based booking application designed to manage reservations
 ## Table of Contents
 
 - [Features](#features)
-- [Restrictions](#restrictions)
 - [Architecture Overview](#architecture-overview)
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
@@ -18,27 +17,23 @@ This project is a Java-based booking application designed to manage reservations
 ## Features
 
 - Create meeting rooms.
+  - Meeting rooms with duplicate names are not allowed
 - Book meeting rooms.
 - Search bookings by date and meeting room.
-- Prevent booking conflicts with overlapping time slots.
+- Cancel bookings.
+  - This is disabled after the booking expires
 - Ensure bookings meet predefined constraints:
-    - Minimum duration of 1 hour.
-    - Duration should be set to one-hour increments
-    - End time must be after the start time.
-    - End datetime must not be in the past
-- Cancel bookings before their expiration.
-
-## Restrictions
-
-The application was created based on the following requirements/restrictions
-
-- The name of each meeting room should be unique
-- When booking a room the following fields are mandatory
-  1. Meeting room
-  2. Employee email
-  3. Date
-  4. Time from
-  5. Time to
+    1. Minimum duration of 1 hour.
+    2. Duration should be set to one-hour increments
+    3. End time must be after the start time.
+    4. End datetime must not be in the past
+    5. There can be no time overlap between two bookings for the same meeting room
+    6. Each booking creation request should have the following fields:
+       1. Meeting room
+       2. Employee email
+       3. Date
+       4. Time from
+       5. Time to
 
 ## Architecture Overview
 
