@@ -60,10 +60,10 @@ public class GlobalExceptionHandler {
      *   "date": "must not be null",
      * }
      * <p>Example generic validation error output:
-     *      * <pre>
-     *      * {
-     *      *   "Validation error": "The booking duration must be at least 1 hour and in 1-hour increments."
-     *      * }
+     * <pre>
+     * {
+     *   "Validation error": "The booking duration must be at least 1 hour and in 1-hour increments."
+     * }
      * </pre>
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
