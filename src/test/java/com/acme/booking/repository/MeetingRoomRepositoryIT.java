@@ -14,18 +14,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-public class MeetingRoomRepositoryIT {
+class MeetingRoomRepositoryIT {
 
     @Autowired
     private MeetingRoomRepository meetingRoomRepository;
 
     @BeforeEach
-    public void init() {
+    void init() {
         meetingRoomRepository.deleteAll();
     }
 
     @Test
-    public void given_aRoomWithASpecificNameAlreadyExists_when_creatingARoomWithTheSameName_then_exceptionIsThrown() {
+    void given_aRoomWithASpecificNameAlreadyExists_when_creatingARoomWithTheSameName_then_exceptionIsThrown() {
         // Given
         MeetingRoom room1 = generateMeetingRoomWithoutId(DEFAULT_MEETING_ROOM_NAME);
         meetingRoomRepository.save(room1);
@@ -36,7 +36,7 @@ public class MeetingRoomRepositoryIT {
     }
 
     @Test
-    public void given_aRoomExists_when_checkingIfItExists_then_trueIsReturned() {
+    void given_aRoomExists_when_checkingIfItExists_then_trueIsReturned() {
         // Given
         MeetingRoom room = generateMeetingRoomWithoutId(DEFAULT_MEETING_ROOM_NAME);
         meetingRoomRepository.save(room);

@@ -40,10 +40,10 @@ class BookingApplicationControllerIT extends BookingApplicationBaseIntegrationTe
     private ObjectMapper objectMapper;
 
     @Autowired
-    BookingMapper bookingMapper;
+    private BookingMapper bookingMapper;
 
     @BeforeEach
-    public void init() {
+    void init() {
         bookingRepository.deleteAll();
         meetingRoomRepository.deleteAll();
     }

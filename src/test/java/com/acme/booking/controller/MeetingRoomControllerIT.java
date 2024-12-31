@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class MeetingRoomControllerIT extends BookingApplicationBaseIntegrationTest {
+class MeetingRoomControllerIT extends BookingApplicationBaseIntegrationTest {
 
     @Autowired
     private MeetingRoomRepository meetingRoomRepository;
@@ -29,12 +29,12 @@ public class MeetingRoomControllerIT extends BookingApplicationBaseIntegrationTe
     private ObjectMapper objectMapper;
 
     @BeforeEach
-    public void init() {
+    void init() {
         meetingRoomRepository.deleteAll();
     }
 
     @Test
-    public void when_meetingRoomCreationRequestIsReceived_then_meetingRoomIsCreated() throws Exception {
+    void when_meetingRoomCreationRequestIsReceived_then_meetingRoomIsCreated() throws Exception {
         // When & Then
         mockMvc.perform(post("/api/meeting-room/create")
                         .param("name", DEFAULT_MEETING_ROOM_NAME)
@@ -44,7 +44,7 @@ public class MeetingRoomControllerIT extends BookingApplicationBaseIntegrationTe
     }
 
     @Test
-    public void given_anotherMeetingRoomAlreadyExists_when_meetingRoomIsCreated_then_bothMeetingRoomsAreReturned() throws Exception {
+    void given_anotherMeetingRoomAlreadyExists_when_meetingRoomIsCreated_then_bothMeetingRoomsAreReturned() throws Exception {
         meetingRoomRepository.save(generateMeetingRoomWithoutId("Existing Meeting Room"));
 
         // When & Then
@@ -56,7 +56,7 @@ public class MeetingRoomControllerIT extends BookingApplicationBaseIntegrationTe
     }
 
     @Test
-    public void given_meetingRoomsExist_when_allMeetingRoomsAreRequested_then_allMeetingRoomsAreReturned() throws Exception {
+    void given_meetingRoomsExist_when_allMeetingRoomsAreRequested_then_allMeetingRoomsAreReturned() throws Exception {
         // Given
         MeetingRoom expectedMeetingRoom1 = meetingRoomRepository.save(generateMeetingRoomWithoutId("Meeting Room 1"));
         MeetingRoom expectedMeetingRoom2 = meetingRoomRepository.save(generateMeetingRoomWithoutId("Meeting Room 2"));
@@ -82,7 +82,7 @@ public class MeetingRoomControllerIT extends BookingApplicationBaseIntegrationTe
     }
 
     @Test
-    public void given_meetingRoomAlreadyExists_when_meetingRoomIsCreated_then_conflictErrorIsReturned() throws Exception {
+    void given_meetingRoomAlreadyExists_when_meetingRoomIsCreated_then_conflictErrorIsReturned() throws Exception {
         meetingRoomRepository.save(generateMeetingRoomWithoutId(DEFAULT_MEETING_ROOM_NAME));
 
         // When & Then

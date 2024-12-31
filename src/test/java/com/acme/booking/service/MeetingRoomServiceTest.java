@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class MeetingRoomServiceTest {
+class MeetingRoomServiceTest {
 
     @InjectMocks
     private MeetingRoomService meetingRoomService;
@@ -33,7 +33,7 @@ public class MeetingRoomServiceTest {
     private MeetingRoomRepository meetingRoomRepository;
 
     @Test
-    public void given_meetingRoomDoesNotExist_when_createMeetingRoom_then_returnsListOfAvailableMeetingRooms() {
+    void given_meetingRoomDoesNotExist_when_createMeetingRoom_then_returnsListOfAvailableMeetingRooms() {
         // Given
         MeetingRoom meetingRoom = generateMeetingRoomWithId(DEFAULT_MEETING_ROOM_NAME);
         MeetingRoom meetingRoom2 = generateMeetingRoomWithId(DEFAULT_MEETING_ROOM_NAME + "2");
@@ -50,7 +50,7 @@ public class MeetingRoomServiceTest {
     }
 
     @Test
-    public void given_meetingRoomAlreadyExists_when_createMeetingRoom_then_throwsResourceAlreadyExistsException() {
+    void given_meetingRoomAlreadyExists_when_createMeetingRoom_then_throwsResourceAlreadyExistsException() {
         // Given
         when(meetingRoomRepository.existsByNameIgnoreCase(DEFAULT_MEETING_ROOM_NAME)).thenReturn(true);
 
@@ -60,7 +60,7 @@ public class MeetingRoomServiceTest {
 
 
     @Test
-    public void given_nonExistentMeetingRoomId_when_findRoomById_then_throwsResourceNotFoundException() {
+    void given_nonExistentMeetingRoomId_when_findRoomById_then_throwsResourceNotFoundException() {
         // Given
         when(meetingRoomRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
 
